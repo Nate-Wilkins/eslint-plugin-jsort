@@ -1,6 +1,6 @@
-# {package.name}
+# {{package.name}}
 
-> {package.description}
+> {{package.description}}
 
 **NOTE**:
 This package is deprecated in favor of [`eslint-plugin-jsort`](https://www.npmjs.com/package/eslint-plugin-jsort).

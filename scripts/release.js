@@ -10,11 +10,17 @@ const loadJsonFileSync = filePath => {
 
 // NOTE: If there are efforts to use these names I think its fair to remove them if the request can't be made with jsort.
 const packageNames = [
+  'eslint-plugin-jsort',
   'eslint-plugin-isort',
   'eslint-plugin-import-sort',
   'eslint-plugin-sort-imports',
-  'eslint-plugin-jsort',
 ];
+
+// Login.
+execSync('npm login', {
+  encoding: 'utf-8',
+  stdio: 'inherit',
+});
 
 try {
   // Parse input.
@@ -57,7 +63,10 @@ try {
     // Publish package.
     try {
       console.log(`Publishing '${pkgName}'.`);
-      execSync('npm publish', { encoding: 'utf-8' });
+      execSync('./node_modules/.bin/np --yolo', {
+        encoding: 'utf-8',
+        stdio: 'inherit',
+      });
     } catch (e) {
       console.error(e);
     }
