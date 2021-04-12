@@ -1,0 +1,41 @@
+{
+  "name": "eslint-plugin-jsort",
+  "version": "0.0.1",
+  "description": "Sort imports effortlessly",
+  "author": "Nate-Wilkins <nate-wilkins@code-null.com> (https://github.com/Nate-Wilkins)",
+  "keywords": [
+    "eslint",
+    "eslintplugin",
+    "eslint-plugin",
+    "jsort",
+    "sort",
+    "isort",
+    "import",
+    "sorting",
+    "format"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/nate-wilkins/eslint-plugin-jsort"
+  },
+  "homepage": "http://github.com/nate-wilkins/eslint-plugin-jsort",
+  "bugs": "http://github.com/nate-wilkins/eslint-plugin-jsort/issues",
+  "main": "lib/jsort.js",
+  "scripts": {
+    "test": "mocha tests --recursive"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@typescript-eslint/parser": "^4.21.0",
+    "eslint": "^7.24.0",
+    "eslint-config-prettier": "^6.10.1",
+    "mocha": "^7.2.0",
+    "prettier": "1.19.1",
+    "typescript": "^4.2.4",
+    "expect.js": "^0.3.1"
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "license": "AGPL"
+}
