@@ -17,11 +17,7 @@ const createLinter = () => {
 };
 
 describe('jsort lints syntax successfully', () => {
-  // Given a linter
   const linter = createLinter();
-
-  // When running the linter against valid and invalid syntax
-  // Then the correct error messages are shown to the user
   linter.run('sort-imports', jsort.rules['sort-imports'], {
     valid: [
       {
