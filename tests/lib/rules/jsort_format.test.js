@@ -317,6 +317,52 @@ import { c, a } from 'foo.js';`,
       'type-multiple',
       'type-default',
     ],
+  })} | sorts side effects`, () => {
+    const tester = createFormatter();
+    expect(
+      tester.verifyAndFix(
+        `import './c';
+import './b';
+import './a';`,
+        {
+          ...Options.typescript,
+          rules: {
+            ['jsort-imports']: [
+              'error',
+              {
+                memberSyntaxSortOrder: [
+                  'value-none',
+                  'value-all',
+                  'value-multiple',
+                  'value-default',
+                  'type-all',
+                  'type-multiple',
+                  'type-default',
+                ],
+              },
+            ],
+          },
+        },
+      ),
+    ).to.eql({
+      fixed: true,
+      messages: [],
+      output: `import './a';
+import './b';
+import './c';`,
+    });
+  });
+
+  it(`${JSON.stringify({
+    memberSyntaxSortOrder: [
+      'value-none',
+      'value-all',
+      'value-multiple',
+      'value-default',
+      'type-all',
+      'type-multiple',
+      'type-default',
+    ],
   })}`, () => {
     const tester = createFormatter();
     expect(
