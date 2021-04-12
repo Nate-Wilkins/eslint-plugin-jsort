@@ -1,19 +1,12 @@
 {
-  "name": "eslint-plugin-jsort",
+  "name": "{{ name }}",
   "version": "0.0.1",
   "description": "Sort imports effortlessly",
   "author": "Nate-Wilkins <nate-wilkins@code-null.com> (https://github.com/Nate-Wilkins)",
   "keywords": [
     "eslint",
     "eslintplugin",
-    "eslint-plugin",
-    "jsort",
-    "sort",
-    "isort",
-    "import",
-    "sorting",
-    "format",
-    "require"
+    "eslint-plugin"
   ],
   "repository": {
     "type": "git",
@@ -42,3 +35,4 @@
   },
   "license": "AGPL"
 }
+
