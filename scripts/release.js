@@ -51,12 +51,13 @@ try {
       'utf-8',
     );
     console.info(
-      `Transformed '${templateReadmeFile}' to '${outputReadmePath}'.`,
+      `Transformed '${templateReadmePath}' to '${outputReadmePath}'.`,
     );
 
     // Publish package.
     try {
-      console.log(execSync('npm publish', { encoding: 'utf-8' }));
+      console.log(`Publishing '${pkgName}'.`);
+      execSync('npm publish', { encoding: 'utf-8' });
     } catch (e) {
       console.error(e);
     }
@@ -64,13 +65,13 @@ try {
 
   // Reset to original.
   try {
-    const outputReadmePath = './README.md';
-    const outputPackagePath = './package.json';
+    console.log(`Resetting modified files.`);
+
     // `README.md`
-    console.log(execSync(`git checkout HEAD -- ${outputReadmePath}`));
+    execSync(`git checkout HEAD -- ${outputReadmePath}`);
 
     // `package.json`
-    console.log(execSync(`git checkout HEAD -- ${outputPackagePath}`));
+    execSync(`git checkout HEAD -- ${outputPackagePath}`);
   } catch (e) {
     console.error(e);
   }
