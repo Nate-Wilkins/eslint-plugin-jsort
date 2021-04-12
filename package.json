@@ -12,7 +12,8 @@
     "isort",
     "import",
     "sorting",
-    "format"
+    "format",
+    "require"
   ],
   "repository": {
     "type": "git",
