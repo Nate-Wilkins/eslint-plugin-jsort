@@ -14,9 +14,12 @@ module.exports = {
     commonjs: true,
     es6: true,
   },
-  plugins: [],
+  plugins: ['bdd'],
   extends: ['eslint:recommended', 'prettier'],
-  rules: {},
+  rules: {
+    'bdd/focus': 2,
+    'bdd/exclude': 2,
+  },
   settings: {},
 };
 
