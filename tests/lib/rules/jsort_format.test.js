@@ -52,7 +52,8 @@ import b from 'foo.js';`,
       fixed: true,
       messages: [],
       output: `import b from 'foo.js';
-import a from 'Foo.js';`,
+import a from 'Foo.js';
+`,
     });
   });
 
@@ -77,6 +78,173 @@ import b from 'foo.js';`,
     });
   });
 
+  it(`${JSON.stringify({
+    ignoreCase: false,
+  })} | format without whitespace`, () => {
+    const tester = createFormatter();
+    expect(
+      tester.verifyAndFix(
+        `
+import b from 'foo.js';
+import a from 'Foo.js';`,
+        {
+          ...Options.default,
+          rules: {
+            ['jsort-imports']: ['error', { ignoreCase: false }],
+          },
+        },
+      ),
+    ).to.eql({
+      fixed: true,
+      messages: [],
+      output: `import b from 'foo.js';
+import a from 'Foo.js';
+`,
+    });
+  });
+
+  it(`${JSON.stringify({
+    ignoreCase: false,
+  })} | no format with only whitespace`, () => {
+    const tester = createFormatter();
+    expect(
+      tester.verifyAndFix(
+        `
+
+`,
+        {
+          ...Options.default,
+          rules: {
+            ['jsort-imports']: ['error', { ignoreCase: false }],
+          },
+        },
+      ),
+    ).to.eql({
+      fixed: false,
+      messages: [],
+      output: `
+
+`,
+    });
+  });
+
+  it(`${JSON.stringify({
+    ignoreCase: false,
+  })} | no format with whitespace and no import declarations`, () => {
+    const tester = createFormatter();
+    expect(
+      tester.verifyAndFix(
+        `
+
+const x = 4;`,
+        {
+          ...Options.default,
+          rules: {
+            ['jsort-imports']: ['error', { ignoreCase: false }],
+          },
+        },
+      ),
+    ).to.eql({
+      fixed: false,
+      messages: [],
+      output: `
+
+const x = 4;`,
+    });
+  });
+
+  it(`${JSON.stringify({
+    ignoreCase: false,
+  })} | format with whitespace and embeded import declarations`, () => {
+    const tester = createFormatter();
+    expect(
+      tester.verifyAndFix(
+        `
+
+const x = 4;
+import a from './a';
+import b from './b';`,
+        {
+          ...Options.default,
+          rules: {
+            ['jsort-imports']: ['error', { ignoreCase: false }],
+          },
+        },
+      ),
+    ).to.eql({
+      fixed: true,
+      messages: [],
+      output: `import a from './a';
+import b from './b';
+const x = 4;
+`,
+    });
+  });
+
+  it(`${JSON.stringify({
+    ignoreCase: false,
+  })} | no format with comments before declarations with whitespace`, () => {
+    const tester = createFormatter();
+    expect(
+      tester.verifyAndFix(
+        `
+// No touch.
+import a from './a';
+import b from './b';`,
+        {
+          ...Options.default,
+          rules: {
+            ['jsort-imports']: ['error', { ignoreCase: false }],
+          },
+        },
+      ),
+    ).to.eql({
+      fixed: false,
+      messages: [
+        {
+          ruleId: 'jsort-imports',
+          severity: 2,
+          message: 'Imports should be sorted.',
+          line: 3,
+          column: 1,
+          nodeType: 'ImportDeclaration',
+          messageId: 'sortImports',
+          endLine: 3,
+          endColumn: 21,
+        },
+      ],
+      output: `
+// No touch.
+import a from './a';
+import b from './b';`,
+    });
+  });
+
+  it(`${JSON.stringify({
+    ignoreCase: false,
+  })} | no format with comments before declarations without whitespace`, () => {
+    const tester = createFormatter();
+    expect(
+      tester.verifyAndFix(
+        `// No touch.
+import a from './a';
+import b from './b';`,
+        {
+          ...Options.default,
+          rules: {
+            ['jsort-imports']: ['error', { ignoreCase: false }],
+          },
+        },
+      ),
+    ).to.eql({
+      fixed: false,
+      messages: [],
+      output: `// No touch.
+import a from './a';
+import b from './b';`,
+    });
+  });
+
   it(`${JSON.stringify({ ignoreCase: false })} | specifier sorting`, () => {
     const tester = createFormatter();
     expect(
@@ -94,7 +262,8 @@ import { B, b } from 'zoo.js';`,
       fixed: true,
       messages: [],
       output: `import { a, A } from 'foo.js';
-import { b, B } from 'zoo.js';`,
+import { b, B } from 'zoo.js';
+`,
     });
   });
 
@@ -138,7 +307,8 @@ import { a, A } from 'foo.js';`,
       fixed: true,
       messages: [],
       output: `import { a, A } from 'foo.js';
-import { b, B } from 'zoo.js';`,
+import { b, B } from 'zoo.js';
+`,
     });
   });
 
@@ -166,7 +336,8 @@ import { a, A, K, J } from 'foo.js';`,
   J,
   K
 } from 'foo.js';
-import { b, B } from 'zoo.js';`,
+import { b, B } from 'zoo.js';
+`,
     });
   });
 
@@ -195,7 +366,8 @@ import { a, A, K, J } from 'foo.js';`,
 \tJ,
 \tK
 } from 'foo.js';
-import { b, B } from 'zoo.js';`,
+import { b, B } from 'zoo.js';
+`,
     });
   });
 
@@ -222,7 +394,8 @@ import { c, a } from 'foo.js';`,
       fixed: true,
       messages: [],
       output: `import { a, c } from 'foo.js';
-import { b, B } from 'zoo.js';`,
+import { b, B } from 'zoo.js';
+`,
     });
   });
 
@@ -249,7 +422,8 @@ import { c, a } from 'foo.js';`,
       fixed: true,
       messages: [],
       output: `import { b, B } from 'zoo.js';
-import { a, c } from 'foo.js';`,
+import { a, c } from 'foo.js';
+`,
     });
   });
 
@@ -276,7 +450,8 @@ import { c, a } from 'foo.js';`,
       fixed: true,
       messages: [],
       output: `import { c, a } from 'foo.js';
-import { b, B } from 'zoo.js';`,
+import { b, B } from 'zoo.js';
+`,
     });
   });
 
@@ -349,7 +524,8 @@ import './a';`,
       messages: [],
       output: `import './a';
 import './b';
-import './c';`,
+import './c';
+`,
     });
   });
 
@@ -451,7 +627,8 @@ import type { typeType } from './type_type.js';`,
 import type { typeType } from './type_type.js';
 import singleType from './single_type.js';
 import { multipleType1, multipleType2 } from './multiple_type.js';
-import './none_type.js';`,
+import './none_type.js';
+`,
     });
   });
 
@@ -505,7 +682,8 @@ import type { typeType } from './type_type.js';
 import singleType from './single_type.js';
 import { multipleType1, multipleType2 } from './multiple_type.js';
 import type DefaultType from './default_type';
-import './none_type.js';`,
+import './none_type.js';
+`,
     });
   });
 
@@ -557,7 +735,8 @@ import * as allType from 'all_type.js';
 import D, * as DAllType from 'all_type.js';
 import { multipleType1, multipleType2 } from 'multiple_type.js';
 import singleType from './single_type.js';
-import type { typeType } from './type_type.js';`,
+import type { typeType } from './type_type.js';
+`,
     });
   });
 
@@ -623,7 +802,8 @@ import type { multipleType1, multipleType2 } from './type_type.js';`,
 import { multiple2 } from './multiple_type.js';
 import singleType from './single_type.js';
 import type { multipleType1 } from './type_type.js';
-import type { multipleType2 } from './type_type.js';`,
+import type { multipleType2 } from './type_type.js';
+`,
     });
   });
 
@@ -659,6 +839,7 @@ import { multiple2 } from './multiple_type.js';
 import singleType from './single_type.js';
 import type { multipleType1 } from './type_type.js';
 import type { multipleType2 } from './type_type.js';
+
 `,
     });
   });
@@ -719,7 +900,8 @@ import { d as W } from './../rules/util';`,
       fixed: true,
       messages: [],
       output: `import { d as W } from './../rules/util';
-import { a as Z, b as Y, c as X } from './util';`,
+import { a as Z, b as Y, c as X } from './util';
+`,
     });
   });
 
@@ -752,7 +934,8 @@ import { d as W } from './../rules/util';`,
       messages: [],
       output: `import { d as W } from './../rules/util';
 import { a as Z, b as Y } from './util';
-import type { c as X } from './util';`,
+import type { c as X } from './util';
+`,
     });
   });
 
@@ -785,7 +968,8 @@ import { d as W } from './../rules/util';`,
       messages: [],
       output: `import { d as W } from './../rules/util';
 import G, { a as Z, b as Y, c as X } from './util';
-import H from './util';`,
+import H from './util';
+`,
     });
   });
 
@@ -823,7 +1007,8 @@ import type K from './util';`,
 import G, { a as Z, b as Y, c as X } from './util';
 import H from './util';
 import type { e as O, f as N } from './util';
-import type K from './util';`,
+import type K from './util';
+`,
     });
   });
 
@@ -863,7 +1048,8 @@ import G, { a as Z, b as Y, c as X } from './util';
 import H from './util';
 import type U, * as Q from './util';
 import type { e as O, f as N } from './util';
-import type K from './util';`,
+import type K from './util';
+`,
     });
   });
 
@@ -900,7 +1086,8 @@ import React from 'react';
 import type { Node } from 'react';
 import { handleError } from './util';
 import Application from './Application.js';
-import type { Control } from './util';`,
+import type { Control } from './util';
+`,
     });
   });
 
@@ -937,7 +1124,8 @@ import type { Control } from './util';
 import * as R from 'ramda';
 import { Grid } from '@material-ui/core';
 import React from 'react';
-import type { Node } from 'react';`,
+import type { Node } from 'react';
+`,
     });
   });
 
@@ -998,7 +1186,8 @@ import { handleError } from './util';
 import * as R from 'ramda';
 import type { Node } from 'react';
 import React from 'react';
-import { Grid } from '@material-ui/core';`,
+import { Grid } from '@material-ui/core';
+`,
     });
   });
 
@@ -1048,7 +1237,8 @@ import { Grid } from '@material-ui/core';`,
     ).to.eql({
       fixed: true,
       messages: [],
-      output: `import { c as X, b as Y, a as Z } from './util-a';`,
+      output: `import { c as X, b as Y, a as Z } from './util-a';
+`,
     });
   });
 });
