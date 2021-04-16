@@ -1,4 +1,4 @@
-# eslint-plugin-jsort
+# [eslint-plugin-jsort](https://www.npmjs.com/package/eslint-plugin-jsort)
 
 > Sort imports effortlessly
 
