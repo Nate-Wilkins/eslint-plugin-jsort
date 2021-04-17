@@ -1,7 +1,7 @@
 {
   "name": "eslint-plugin-jsort",
   "version": "0.0.1",
-  "description": "Sort imports effortlessly",
+  "description": "Sort imports effortlessly.",
   "author": "Nate-Wilkins <nate-wilkins@code-null.com> (https://github.com/Nate-Wilkins)",
   "keywords": [
     "eslint",

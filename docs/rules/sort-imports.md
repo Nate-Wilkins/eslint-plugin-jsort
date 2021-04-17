@@ -1,4 +1,4 @@
-# jsort
+# `jsort/sort-imports` Rule
 
 > Rule to sort and format imports by a specified order.
 
@@ -9,27 +9,42 @@ Includes sorting by source, specifier (named import), and type of import (value 
 ### Sorting by Type
 
 Can be setup to group different sections of imports by a certain style.
-This can be configured with `memberSyntaxSortOrder` and `sourceSortOrder`.
+
+The `memberSyntaxSortOrder` configuration allows you to sort and group by:
+
+- `value-none`: Side effect imports. (ie `import "./for-side-effects.js";`)
+- `value-all`: Namespace imports. (ie `import * as ValueNamespace from './util';`)
+- `value-multiple`: Multiple module imports. (ie `import { A, B } from './letters';`)
+- `value-default`: Default imports. (ie `import Cow from './cow';`)
+- `type-all`: Type namespace imports. (ie `import type * as TypeNamespace from './util';`)
+- `type-multiple`: Multiple type imports. (ie `import type { Letter, Number } from './things';`)
+- `type-default`: Type default imports. (ie `import type Person from './person';`)
+
+The `sourceSortOrder` configuration allows you to sort and group by:
+
+- `global`: Global modules. (ie `import React from 'react';`)
+- `local`: Local modules. (ie `import MyComponent from './my-component';`)
+
 The default configuration is set to:
 
 ```js
 {
   "rules": {
-    "jsort/jsort-imports": [
+    "jsort/sort-imports": [
       "error",
       {
         "memberSyntaxSortOrder": [
-          "value-none",     // import "./for-side-effects.js";
-          "value-all",      // import * as ValueNamespace from './util';
-          "value-multiple", // import { A, B } from './letters';
-          "value-default",  // import Cow from './cow';
-          "type-all",       // import type * as TypeNamespace from './util';
-          "type-multiple",  // import type { Letter, Number } from './things';
-          "type-default",   // import type Person from './person';
+          "value-none",
+          "value-all",
+          "value-multiple",
+          "value-default",
+          "type-all",
+          "type-multiple",
+          "type-default",
         ],
         "sourceSortOrder": [
-          "global",         // import React from 'react';
-          "local"           // import MyComponent from './my-component';
+          "global",
+          "local"
         ]
       }
     ]
@@ -74,7 +89,7 @@ The default configuration is set to:
 ```js
 {
   "rules": {
-    "jsort/jsort-imports": [
+    "jsort/sort-imports": [
       "error",
       {
         "ignoreCase": false,
@@ -108,7 +123,7 @@ The default configuration is set to:
 ```js
 {
   "rules": {
-    "jsort/jsort-imports": [
+    "jsort/sort-imports": [
       "error",
       {
         "ignoreMemberSort": false,       // import { A, B } from './util';
@@ -144,7 +159,7 @@ The default configuration is set to:
 ```js
 {
   "rules": {
-    "jsort/jsort-imports": [
+    "jsort/sort-imports": [
       "error",
       {
         "forceCombineSameSources": true,
@@ -163,7 +178,7 @@ The default configuration is set to:
 ```js
 {
   "rules": {
-    "jsort/jsort-imports": [
+    "jsort/sort-imports": [
       "error",
       {
         "forceSingleLineImports": false,
@@ -196,7 +211,7 @@ The default configuration is set to:
 ```js
 {
   "rules": {
-    "jsort/jsort-imports": [
+    "jsort/sort-imports": [
       "error",
       {
         "normalizeSourcePaths": 'ignore',

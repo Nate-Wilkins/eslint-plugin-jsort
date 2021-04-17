@@ -1,11 +1,20 @@
 # [eslint-plugin-jsort](https://www.npmjs.com/package/eslint-plugin-jsort)
 
-> Sort imports effortlessly
+> Sort imports effortlessly.
 
-This rule formats import declaration statements without mercy and with a lot of flexibility.
-JavaScript imports are frustrating and this tries to make it easier to work with them.
+This rule sorts & formats import declaration with a lot of flexibility using `eslint --fix`.
+
+JavaScript imports are frustrating and this tries to make them a bit easier to work with.
 Feel free to post any issues/suggestions you might have with the plugin on the [issue
 tracker](https://github.com/Nate-Wilkins/eslint-plugin-jsort/issues).
+
+## Capabilities
+
+- [Sort import declarations into distinct groups by type](./docs/rules/jsort_imports.md#Sorting%20by%20Type)
+- [Sort import declarations by "global" packages vs "local" packages](./docs/rules/jsort_imports.md#Sorting%20by%20Type)
+- [Sort import declarations by source](./docs/rules/jsort_imports.md#Sorting%20by%20Source)
+- [Sort imported modules (aka specifiers)](./docs/rules/jsort_imports.md#Sorting%20by%20Specifier)
+- [Combine import declarations that can be combined](./docs/rules/jsort_imports.md#Force%20Combine%20Same%20Source%20Imports)
 
 ## Installation
 
@@ -36,24 +45,38 @@ $ npm install eslint-plugin-jsort --save-dev
 ```json
 {
   "rules": {
-    "jsort/jsort-imports": [
+    "jsort/sort-imports": [
       "error",
       {
-        /* Additional Configuration */
+        /* `sort-imports` Additional Configuration */
+      }
+    ],
+    "jsort/normalize-import-source": [
+      "error",
+      {
+        /* `normalize-import-source` Additional Configuration */
       }
     ]
   }
 }
 ```
 
-3. For "Additional Configuration" see [`jsort/jsort-imports` docs](./docs/rules/jsort_imports.md).
+3. For "`sort-imports` Additional Configuration" see [`jsort/sort-imports` docs](./docs/rules/sort-imports.md).
+4. For "`normalize-import-source` Additional Configuration" see [`jsort/normalize-import-source` docs](./docs/rules/normalize-import-source.md)
 
 ## Available Rules
 
-- [`jsort/jsort-imports`](./docs/rules/jsort_imports.md)
+- [`jsort/sort-imports`](./docs/rules/sort-imports.md)
+- [`jsort/normalize-import-source`](./docs/rules/normalize-import-source.md)
+
+## Other Alternatives
+
+- [ESLint Builtin `sort-imports` Rule](https://eslint.org/docs/rules/sort-imports)
+- [eslint-plugin-simple-import-sort](https://github.com/lydell/eslint-plugin-simple-import-sort)
+- [eslint-plugin-sort-imports-es6-autofix](https://github.com/marudor/eslint-plugin-sort-imports-es6-autofix)
+- [prettier-plugin-sort-imports](https://github.com/trivago/prettier-plugin-sort-imports)
 
 ## Other Resources
 
-- [ESLint Builtin `sort-imports` Rule](https://eslint.org/docs/rules/sort-imports)
 - [AST Explorer](https://astexplorer.net/)
 

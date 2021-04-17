@@ -26,8 +26,13 @@ try {
   // Parse input.
   const templateReadmePath = './README.symlink.md';
   const templatePackagePath = './package.symlink.json';
-  const outputReadmePath = './README.md';
-  const outputPackagePath = './package.json';
+  const outputReadmePath = './dist/README.md';
+  const outputPackagePath = './dist/package.json';
+
+  // Copy source to output.
+  execSync('mkdir -p ./dist');
+  execSync('cp ./.npmignore ./dist/');
+  execSync('cp -r ./lib ./dist/');
 
   // Load templates.
   const templatePackageFile = fs.readFileSync(templatePackagePath, 'utf-8');
@@ -63,26 +68,13 @@ try {
     // Publish package.
     try {
       console.log(`Publishing '${pkgName}'.`);
-      execSync('./node_modules/.bin/np --yolo', {
+      execSync('./node_modules/.bin/np --contents ./dist', {
         encoding: 'utf-8',
         stdio: 'inherit',
       });
     } catch (e) {
       console.error(e);
     }
-  }
-
-  // Reset to original.
-  try {
-    console.log(`Resetting modified files.`);
-
-    // `README.md`
-    execSync(`git checkout HEAD -- ${outputReadmePath}`);
-
-    // `package.json`
-    execSync(`git checkout HEAD -- ${outputPackagePath}`);
-  } catch (e) {
-    console.error(e);
   }
 
   process.exit(0);
