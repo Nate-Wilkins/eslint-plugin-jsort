@@ -1,40 +1,32 @@
 'use strict';
 /* eslint-env mocha */
-const jsort = require('../../../lib/jsort');
-const Linter = require('eslint').Linter;
-const typescriptEslintParser = require('@typescript-eslint/parser');
 const expect = require('expect.js');
+const { Options, createFormatter } = require('./util');
 
-const Options = {
-  default: {
-    parserOptions: {
-      ecmaVersion: 2015,
-      sourceType: 'module',
-    },
-  },
-  typescript: {
-    parser: '@typescript-eslint/parser',
-    parserOptions: {
-      ecmaVersion: 2015,
-      sourceType: 'module',
-      requireConfigFile: false,
-    },
-  },
-};
+//describe("'jsort/sort-imports' lints syntax successfully", () => {
+//  const linter = createLinter();
+//  linter.run('sort-imports', jsort.rules['sort-imports'], {
+//    valid: [
+//      {
+//        code: `import { a, b, c } from './module';`,
+//        options: [],
+//      },
+//    ],
 
-const createFormatter = () => {
-  const tester = new Linter();
+//    invalid: [
+//      {
+//        code: `
+//        //
+//import { c } from './module';
+//import { b, a } from './module';
+//`,
+//        errors: [{ message: 'Imports should be sorted.' }],
+//      },
+//    ],
+//  });
+//});
 
-  tester.defineParser('@typescript-eslint/parser', typescriptEslintParser);
-
-  tester.defineRules({
-    'jsort-imports': jsort.rules['jsort-imports'],
-  });
-
-  return tester;
-};
-
-describe('jsort formats syntax successfully', () => {
+describe("'jsort/sort-imports' formats syntax successfully", () => {
   it(`${JSON.stringify({ ignoreCase: false })} | source sorting`, () => {
     const tester = createFormatter();
     expect(
@@ -44,7 +36,7 @@ import b from 'foo.js';`,
         {
           ...Options.default,
           rules: {
-            ['jsort-imports']: ['error', { ignoreCase: false }],
+            ['sort-imports']: ['error', { ignoreCase: false }],
           },
         },
       ),
@@ -66,7 +58,7 @@ import b from 'foo.js';`,
         {
           ...Options.default,
           rules: {
-            ['jsort-imports']: ['error', { ignoreCase: true }],
+            ['sort-imports']: ['error', { ignoreCase: true }],
           },
         },
       ),
@@ -90,7 +82,7 @@ import a from 'Foo.js';`,
         {
           ...Options.default,
           rules: {
-            ['jsort-imports']: ['error', { ignoreCase: false }],
+            ['sort-imports']: ['error', { ignoreCase: false }],
           },
         },
       ),
@@ -115,7 +107,7 @@ import a from 'Foo.js';
         {
           ...Options.default,
           rules: {
-            ['jsort-imports']: ['error', { ignoreCase: false }],
+            ['sort-imports']: ['error', { ignoreCase: false }],
           },
         },
       ),
@@ -140,7 +132,7 @@ const x = 4;`,
         {
           ...Options.default,
           rules: {
-            ['jsort-imports']: ['error', { ignoreCase: false }],
+            ['sort-imports']: ['error', { ignoreCase: false }],
           },
         },
       ),
@@ -167,7 +159,7 @@ import b from './b';`,
         {
           ...Options.default,
           rules: {
-            ['jsort-imports']: ['error', { ignoreCase: false }],
+            ['sort-imports']: ['error', { ignoreCase: false }],
           },
         },
       ),
@@ -194,7 +186,7 @@ import b from './b';`,
         {
           ...Options.default,
           rules: {
-            ['jsort-imports']: ['error', { ignoreCase: false }],
+            ['sort-imports']: ['error', { ignoreCase: false }],
           },
         },
       ),
@@ -202,7 +194,7 @@ import b from './b';`,
       fixed: false,
       messages: [
         {
-          ruleId: 'jsort-imports',
+          ruleId: 'sort-imports',
           severity: 2,
           message: 'Imports should be sorted.',
           line: 3,
@@ -232,7 +224,7 @@ import b from './b';`,
         {
           ...Options.default,
           rules: {
-            ['jsort-imports']: ['error', { ignoreCase: false }],
+            ['sort-imports']: ['error', { ignoreCase: false }],
           },
         },
       ),
@@ -254,7 +246,7 @@ import { B, b } from 'zoo.js';`,
         {
           ...Options.default,
           rules: {
-            ['jsort-imports']: ['error', { ignoreCase: false }],
+            ['sort-imports']: ['error', { ignoreCase: false }],
           },
         },
       ),
@@ -276,7 +268,7 @@ import { B, b } from 'zoo.js';`,
         {
           ...Options.default,
           rules: {
-            ['jsort-imports']: ['error', { ignoreCase: true }],
+            ['sort-imports']: ['error', { ignoreCase: true }],
           },
         },
       ),
@@ -299,7 +291,7 @@ import { a, A } from 'foo.js';`,
         {
           ...Options.default,
           rules: {
-            ['jsort-imports']: ['error', { maxLength: 30 }],
+            ['sort-imports']: ['error', { maxLength: 30 }],
           },
         },
       ),
@@ -323,7 +315,7 @@ import { a, A, K, J } from 'foo.js';`,
         {
           ...Options.default,
           rules: {
-            ['jsort-imports']: ['error', { maxLength: 30 }],
+            ['sort-imports']: ['error', { maxLength: 30 }],
           },
         },
       ),
@@ -353,7 +345,7 @@ import { a, A, K, J } from 'foo.js';`,
         {
           ...Options.default,
           rules: {
-            ['jsort-imports']: ['error', { maxLength: 30, indent: '\t' }],
+            ['sort-imports']: ['error', { maxLength: 30, indent: '\t' }],
           },
         },
       ),
@@ -383,7 +375,7 @@ import { c, a } from 'foo.js';`,
         {
           ...Options.default,
           rules: {
-            ['jsort-imports']: [
+            ['sort-imports']: [
               'error',
               { ignoreDeclarationSort: false, ignoreMemberSort: false },
             ],
@@ -411,7 +403,7 @@ import { c, a } from 'foo.js';`,
         {
           ...Options.default,
           rules: {
-            ['jsort-imports']: [
+            ['sort-imports']: [
               'error',
               { ignoreDeclarationSort: true, ignoreMemberSort: false },
             ],
@@ -439,7 +431,7 @@ import { c, a } from 'foo.js';`,
         {
           ...Options.default,
           rules: {
-            ['jsort-imports']: [
+            ['sort-imports']: [
               'error',
               { ignoreDeclarationSort: false, ignoreMemberSort: true },
             ],
@@ -467,7 +459,7 @@ import { c, a } from 'foo.js';`,
         {
           ...Options.default,
           rules: {
-            ['jsort-imports']: [
+            ['sort-imports']: [
               'error',
               { ignoreDeclarationSort: true, ignoreMemberSort: true },
             ],
@@ -502,7 +494,7 @@ import './a';`,
         {
           ...Options.typescript,
           rules: {
-            ['jsort-imports']: [
+            ['sort-imports']: [
               'error',
               {
                 memberSyntaxSortOrder: [
@@ -552,7 +544,7 @@ import type { typeType } from './type_type.js';`,
         {
           ...Options.typescript,
           rules: {
-            ['jsort-imports']: [
+            ['sort-imports']: [
               'error',
               {
                 memberSyntaxSortOrder: [
@@ -603,7 +595,7 @@ import type { typeType } from './type_type.js';`,
         {
           ...Options.typescript,
           rules: {
-            ['jsort-imports']: [
+            ['sort-imports']: [
               'error',
               {
                 memberSyntaxSortOrder: [
@@ -656,7 +648,7 @@ import type * as NamespaceType from './namespace_type.js';`,
         {
           ...Options.typescript,
           rules: {
-            ['jsort-imports']: [
+            ['sort-imports']: [
               'error',
               {
                 memberSyntaxSortOrder: [
@@ -710,7 +702,7 @@ import type { typeType } from './type_type.js';`,
         {
           ...Options.typescript,
           rules: {
-            ['jsort-imports']: [
+            ['sort-imports']: [
               'error',
               {
                 memberSyntaxSortOrder: [
@@ -753,7 +745,7 @@ import type { multipleType1, multipleType2 } from './type_type.js';`,
         {
           ...Options.typescript,
           rules: {
-            ['jsort-imports']: [
+            ['sort-imports']: [
               'error',
               {
                 forceCombineSameSources: false,
@@ -785,7 +777,7 @@ import type { multipleType1, multipleType2 } from './type_type.js';`,
         {
           ...Options.typescript,
           rules: {
-            ['jsort-imports']: [
+            ['sort-imports']: [
               'error',
               {
                 forceCombineSameSources: false,
@@ -821,7 +813,7 @@ import type { multipleType1, multipleType2 } from './type_type.js';`,
           ...Options.typescript,
           rules: {
             ['no-extra-semi']: ['error'],
-            ['jsort-imports']: [
+            ['sort-imports']: [
               'error',
               {
                 forceCombineSameSources: false,
@@ -857,7 +849,7 @@ import type { multipleType1, multipleType2 } from './type_type.js';`,
         {
           ...Options.typescript,
           rules: {
-            ['jsort-imports']: [
+            ['sort-imports']: [
               'error',
               {
                 forceCombineSameSources: true,
@@ -886,7 +878,7 @@ import { d as W } from './../rules/util';`,
         {
           ...Options.typescript,
           rules: {
-            ['jsort-imports']: [
+            ['sort-imports']: [
               'error',
               {
                 forceCombineSameSources: true,
@@ -919,7 +911,7 @@ import { d as W } from './../rules/util';`,
         {
           ...Options.typescript,
           rules: {
-            ['jsort-imports']: [
+            ['sort-imports']: [
               'error',
               {
                 forceCombineSameSources: true,
@@ -953,7 +945,7 @@ import { d as W } from './../rules/util';`,
         {
           ...Options.typescript,
           rules: {
-            ['jsort-imports']: [
+            ['sort-imports']: [
               'error',
               {
                 forceCombineSameSources: true,
@@ -990,7 +982,7 @@ import type K from './util';`,
         {
           ...Options.typescript,
           rules: {
-            ['jsort-imports']: [
+            ['sort-imports']: [
               'error',
               {
                 forceCombineSameSources: true,
@@ -1030,7 +1022,7 @@ import type U, * as Q from './util';`,
         {
           ...Options.typescript,
           rules: {
-            ['jsort-imports']: [
+            ['sort-imports']: [
               'error',
               {
                 forceCombineSameSources: true,
@@ -1068,7 +1060,7 @@ import { handleError } from './util';`,
           ...Options.typescript,
           rules: {
             ['no-extra-semi']: ['error'],
-            ['jsort-imports']: [
+            ['sort-imports']: [
               'error',
               {
                 sourceSortOrder: ['global', 'local'],
@@ -1106,7 +1098,7 @@ import { handleError } from './util';`,
           ...Options.typescript,
           rules: {
             ['no-extra-semi']: ['error'],
-            ['jsort-imports']: [
+            ['sort-imports']: [
               'error',
               {
                 sourceSortOrder: ['local', 'global'],
@@ -1157,7 +1149,7 @@ import * as Everything from './everything.js';`,
           ...Options.typescript,
           rules: {
             ['no-extra-semi']: ['error'],
-            ['jsort-imports']: [
+            ['sort-imports']: [
               'error',
               {
                 sourceSortOrder: ['local', 'global'],
@@ -1200,7 +1192,7 @@ import { Grid } from '@material-ui/core';
           ...Options.typescript,
           rules: {
             ['no-extra-semi']: ['error'],
-            ['jsort-imports']: [
+            ['sort-imports']: [
               'error',
               {
                 sortByLocalImportNames: false,
@@ -1225,7 +1217,7 @@ import { Grid } from '@material-ui/core';
           ...Options.typescript,
           rules: {
             ['no-extra-semi']: ['error'],
-            ['jsort-imports']: [
+            ['sort-imports']: [
               'error',
               {
                 sortByLocalImportNames: true,

@@ -187,3 +187,32 @@ import { b } from './a';
 import { c } from './a';
 ```
 
+### Normalize Source Paths
+
+This can be configured with `normalizeSourcePaths`.
+Available options are `ignore`, `include-cwd`, and `exclude-cwd`.
+The default configuration is set to:
+
+```js
+{
+  "rules": {
+    "jsort/jsort-imports": [
+      "error",
+      {
+        "normalizeSourcePaths": 'ignore',
+      }
+    ]
+  }
+}
+```
+
+**valid**
+
+```js
+import { a, b, c } from './../a'; // This would be an 'include-cwd'.
+```
+
+```js
+import { a, b, c } from '../a'; // This would be an 'exclude-cwd'.
+```
+
