@@ -6,7 +6,7 @@
  *   - Should work with `jsort-imports`
  *
  * @author nate-wilkins <nwilkins2012@gmail.com> (https://github.com/nate-wilkins)
- * @license AGPL (c) 2021
+ * @license Apache-2.0 (c) 2021
  */
 'use strict';
 

@@ -1,7 +1,7 @@
 {
   "name": "{{ name }}",
   "version": "0.0.1",
-  "description": "Sort imports effortlessly",
+  "description": "Sort imports effortlessly.",
   "author": "Nate-Wilkins <nate-wilkins@code-null.com> (https://github.com/Nate-Wilkins)",
   "keywords": [
     "eslint",
@@ -42,5 +42,11 @@
   "engines": {
     "node": ">=0.10.0"
   },
-  "license": "AGPL"
+  "license": "Apache-2.0",
+  "licenses": [
+    {
+      "type": "Apache-2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0"
+    }
+  ]
 }
