@@ -30,6 +30,7 @@ try {
   const outputPackagePath = './dist/package.json';
 
   // Copy source to output.
+  execSync('rm -rf ./dist');
   execSync('mkdir -p ./dist');
   execSync('cp ./.npmignore ./dist/');
   execSync('cp -r ./lib ./dist/');
