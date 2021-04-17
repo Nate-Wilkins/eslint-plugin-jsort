@@ -1,6 +1,15 @@
-# [eslint-plugin-jsort](https://www.npmjs.com/package/eslint-plugin-jsort)
+# [eslint](https://github.com/eslint/eslint)-plugin-jsort
 
-> Sort imports effortlessly.
+[![npm](http://img.shields.io/npm/v/eslint-plugin-jsort.svg?style=flat-square)](https://www.npmjs.com/package/eslint-plugin-jsort)
+[![license](https://img.shields.io/npm/l/eslint-plugin-jsort)](https://github.com/Nate-Wilkins/eslint-plugin-jsort/blob/main/LICENSE)
+[![status](https://img.shields.io/travis/Nate-Wilkins/eslint-plugin-jsort.svg?style=flat-square)](https://travis-ci.org/Nate-Wilkins/eslint-plugin-jsort)
+[![dependencies](https://david-dm.org/nate-wilkins/eslint-plugin-jsort.svg?style=flat-square)](https://david-dm.org/nate-wilkins/eslint-plugin-jsort)
+
+> ESLint plugin with rules to sort imports effortlessly.
+
+```bash
+$ npm install eslint-plugin-jsort
+```
 
 This rule sorts & formats import declaration with a lot of flexibility using `eslint --fix`.
 
