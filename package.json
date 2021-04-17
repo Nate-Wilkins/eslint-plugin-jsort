@@ -24,7 +24,7 @@
   "main": "lib/jsort.js",
   "scripts": {
     "test": "mocha tests --recursive",
-    "release": "yarn test && scripts/release.js"
+    "release": "yarn np"
   },
   "dependencies": {},
   "devDependencies": {
