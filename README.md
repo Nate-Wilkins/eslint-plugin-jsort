@@ -28,6 +28,11 @@ tracker](https://github.com/Nate-Wilkins/eslint-plugin-jsort/issues).
 - [Force explicit type imports](./docs/rules/sort-imports.md#force-explicit-type-imports)
 - [Normalize import source](./docs/rules/normalize-import-source.md)
 
+## Supported Parsers
+
+- [`@typescript-eslint/parser`](https://github.com/typescript-eslint/typescript-eslint)
+- [`@babel/eslint-parser`](https://github.com/babel/babel)
+
 ## Installation
 
 1. Install [ESLint](http://eslint.org):
