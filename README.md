@@ -19,11 +19,11 @@ tracker](https://github.com/Nate-Wilkins/eslint-plugin-jsort/issues).
 
 ## Capabilities
 
-- [Sort import declarations into distinct groups by type](./docs/rules/jsort_imports.md#Sorting%20by%20Type)
-- [Sort import declarations by "global" packages vs "local" packages](./docs/rules/jsort_imports.md#Sorting%20by%20Type)
-- [Sort import declarations by source](./docs/rules/jsort_imports.md#Sorting%20by%20Source)
-- [Sort imported modules (aka specifiers)](./docs/rules/jsort_imports.md#Sorting%20by%20Specifier)
-- [Combine import declarations that can be combined](./docs/rules/jsort_imports.md#Force%20Combine%20Same%20Source%20Imports)
+- [Sort import declarations into distinct groups by type](./docs/rules/sort-imports.md#sorting-by-type)
+- [Sort import declarations by "global" packages vs "local" packages](./docs/rules/sort-imports.md#sorting-by-type)
+- [Sort import declarations by source](./docs/rules/sort-imports.md#sorting-by-source)
+- [Sort imported modules (aka specifiers)](./docs/rules/sort-imports.md#sorting-by-specifier)
+- [Combine import declarations that can be combined](./docs/rules/sort-imports.md#force-combine-same-source-imports)
 
 ## Installation
 
