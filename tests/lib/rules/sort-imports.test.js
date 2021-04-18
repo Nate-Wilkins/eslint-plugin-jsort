@@ -979,6 +979,42 @@ import { type a, b, c } from './util';
   it(`${JSON.stringify({
     forceCombineSameSources: true,
     forceSingleLineImports: false,
+    forceExplicitTypeImports: true,
+  })} | with mixed value default specifier and type specifiers`, () => {
+    const tester = createFormatter();
+    expect(
+      tester.verifyAndFix(
+        `import A, { type a, b } from './util-a';
+import { type c } from './util-a';
+import { d } from './util-a';
+`,
+        {
+          ...Options.babel,
+          rules: {
+            ['sort-imports']: [
+              'error',
+              {
+                forceCombineSameSources: true,
+                forceSingleLineImports: false,
+                forceExplicitTypeImports: true,
+              },
+            ],
+          },
+        },
+      ),
+    ).to.eql({
+      fixed: true,
+      messages: [],
+      output: `import A, { b, d } from './util-a';
+import type { a, c } from './util-a';
+`,
+    });
+  });
+
+  it(`${JSON.stringify({
+    forceCombineSameSources: true,
+    forceSingleLineImports: false,
+    forceExplicitTypeImports: true,
   })} | type and value multiple import specifiers`, () => {
     const tester = createFormatter();
     expect(
@@ -995,6 +1031,7 @@ import { d as W } from './../rules/util';`,
               {
                 forceCombineSameSources: true,
                 forceSingleLineImports: false,
+                forceExplicitTypeImports: true,
               },
             ],
           },
@@ -1013,6 +1050,7 @@ import type { c as X } from './util';
   it(`${JSON.stringify({
     forceCombineSameSources: true,
     forceSingleLineImports: false,
+    forceExplicitTypeImports: true,
   })} | mixed multiple and default import specifiers`, () => {
     const tester = createFormatter();
     expect(
@@ -1029,6 +1067,7 @@ import { d as W } from './../rules/util';`,
               {
                 forceCombineSameSources: true,
                 forceSingleLineImports: false,
+                forceExplicitTypeImports: true,
               },
             ],
           },
@@ -1047,6 +1086,7 @@ import H from './util';
   it(`${JSON.stringify({
     forceCombineSameSources: true,
     forceSingleLineImports: false,
+    forceExplicitTypeImports: true,
   })} | type and value mixed multiple and default import specifiers`, () => {
     const tester = createFormatter();
     expect(
@@ -1066,6 +1106,7 @@ import type K from './util';`,
               {
                 forceCombineSameSources: true,
                 forceSingleLineImports: false,
+                forceExplicitTypeImports: true,
               },
             ],
           },
@@ -1086,6 +1127,7 @@ import type K from './util';
   it(`${JSON.stringify({
     forceCombineSameSources: true,
     forceSingleLineImports: false,
+    forceExplicitTypeImports: true,
   })} | type and value mixed multiple and default and namespace import specifiers`, () => {
     const tester = createFormatter();
     expect(
@@ -1106,6 +1148,7 @@ import type U, * as Q from './util';`,
               {
                 forceCombineSameSources: true,
                 forceSingleLineImports: false,
+                forceExplicitTypeImports: true,
               },
             ],
           },

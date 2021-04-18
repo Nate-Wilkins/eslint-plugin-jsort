@@ -23,7 +23,8 @@
   "bugs": "http://github.com/nate-wilkins/eslint-plugin-jsort/issues",
   "main": "lib/jsort.js",
   "scripts": {
-    "test": "mocha tests --recursive",
+    "test:lint": "yarn eslint './**/*.js'",
+    "test": "mocha tests --recursive && yarn test:lint",
     "release": "yarn np"
   },
   "dependencies": {},
