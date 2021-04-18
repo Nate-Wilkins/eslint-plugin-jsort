@@ -2,7 +2,8 @@
 /* eslint-env mocha */
 const Linter = require('eslint').Linter;
 const RuleTester = require('eslint').RuleTester;
-const typescriptEslintParser = require('@typescript-eslint/parser');
+const eslintParserBabel = require('@babel/eslint-parser');
+const eslintParserTypescript = require('@typescript-eslint/parser');
 const jsort = require('../../../lib/jsort');
 
 const Options = {
@@ -17,7 +18,18 @@ const Options = {
     parserOptions: {
       ecmaVersion: 2015,
       sourceType: 'module',
+    },
+  },
+  babel: {
+    parser: '@babel/eslint-parser',
+    parserOptions: {
+      ecmaVersion: 2015,
+      sourceType: 'module',
       requireConfigFile: false,
+      babelOptions: {
+        presets: ['@babel/preset-flow'],
+        plugins: [],
+      },
     },
   },
 };
@@ -25,7 +37,8 @@ const Options = {
 const createFormatter = () => {
   const tester = new Linter();
 
-  tester.defineParser('@typescript-eslint/parser', typescriptEslintParser);
+  tester.defineParser('@babel/eslint-parser', eslintParserBabel);
+  tester.defineParser('@typescript-eslint/parser', eslintParserTypescript);
 
   tester.defineRules({
     'sort-imports': jsort.rules['sort-imports'],

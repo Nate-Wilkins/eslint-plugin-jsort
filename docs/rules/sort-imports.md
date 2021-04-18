@@ -202,10 +202,20 @@ import { b } from './a';
 import { c } from './a';
 ```
 
-### Normalize Source Paths
+### Force Explicit Type Imports
 
-This can be configured with `normalizeSourcePaths`.
-Available options are `ignore`, `include-cwd`, and `exclude-cwd`.
+Explicitly import types. This will split import declarations with mixed type and value imports.
+This doesn't really apply to too many people but for those running specific parsers that allow
+mixing type and value imports (ie `import { type TypeSpecifier, ValueSpecifier } from './util';`)
+this will split them.
+
+There are a few reason you want to do this.
+
+1. Packaging systems include the referenced type code - Not explicitly filtering it out.
+2. Other parsers don't allow this and are actively not going to support it.
+3. Split reads a lot better.
+
+This can be configured with `forceExplicitTypeImports`.
 The default configuration is set to:
 
 ```js
@@ -214,7 +224,7 @@ The default configuration is set to:
     "jsort/sort-imports": [
       "error",
       {
-        "normalizeSourcePaths": 'ignore',
+        "forceExplicitTypeImports": true,
       }
     ]
   }
@@ -224,10 +234,13 @@ The default configuration is set to:
 **valid**
 
 ```js
-import { a, b, c } from './../a'; // This would be an 'include-cwd'.
+import type { a } from './util';
+import { b } from './util';
 ```
 
+**invalid**
+
 ```js
-import { a, b, c } from '../a'; // This would be an 'exclude-cwd'.
+import { type a, b } from './util'; // Mixed import declaration type.
 ```
 

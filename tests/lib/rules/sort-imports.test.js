@@ -802,17 +802,61 @@ import type { multipleType2 } from './type_type.js';
   it(`${JSON.stringify({
     forceCombineSameSources: false,
     forceSingleLineImports: true,
+    forceExplicitTypeImports: true,
+  })} | with import type specifiers`, () => {
+    const tester = createFormatter();
+    expect(
+      tester.verifyAndFix(
+        `import { type multiple1, type multiple2, multiple3 } from './multiple_type.js';
+import singleType from './single_type.js';
+import type { multipleType1, multipleType2 } from './type_type.js';`,
+        {
+          ...Options.babel,
+          rules: {
+            ['sort-imports']: [
+              'error',
+              {
+                forceCombineSameSources: false,
+                forceSingleLineImports: true,
+                forceExplicitTypeImports: true,
+              },
+            ],
+          },
+        },
+      ),
+    ).to.eql({
+      fixed: true,
+      messages: [],
+      output: `import { multiple3 } from './multiple_type.js';
+import singleType from './single_type.js';
+import type { multiple1 } from './multiple_type.js';
+import type { multiple2 } from './multiple_type.js';
+import type { multipleType1 } from './type_type.js';
+import type { multipleType2 } from './type_type.js';
+`,
+    });
+  });
+
+  it(`${JSON.stringify({
+    forceCombineSameSources: false,
+    forceSingleLineImports: true,
   })} | works with additional rules`, () => {
     const tester = createFormatter();
     expect(
       tester.verifyAndFix(
-        `import { multiple1, multiple2 } from './multiple_type.js';;;
+        `import { multiple1, multiple2 } from '../multiple_type.js';;;
 import singleType from './single_type.js';
 import type { multipleType1, multipleType2 } from './type_type.js';`,
         {
           ...Options.typescript,
           rules: {
             ['no-extra-semi']: ['error'],
+            ['normalize-import-source']: [
+              'error',
+              {
+                sourceLocalImportType: 'include-cwd',
+              },
+            ],
             ['sort-imports']: [
               'error',
               {
@@ -826,8 +870,8 @@ import type { multipleType1, multipleType2 } from './type_type.js';`,
     ).to.eql({
       fixed: true,
       messages: [],
-      output: `import { multiple1 } from './multiple_type.js';
-import { multiple2 } from './multiple_type.js';
+      output: `import { multiple1 } from './../multiple_type.js';
+import { multiple2 } from './../multiple_type.js';
 import singleType from './single_type.js';
 import type { multipleType1 } from './type_type.js';
 import type { multipleType2 } from './type_type.js';
@@ -893,6 +937,41 @@ import { d as W } from './../rules/util';`,
       messages: [],
       output: `import { d as W } from './../rules/util';
 import { a as Z, b as Y, c as X } from './util';
+`,
+    });
+  });
+
+  it(`${JSON.stringify({
+    forceCombineSameSources: true,
+    forceSingleLineImports: false,
+    forceExplicitTypeImports: false,
+  })} | with import type specifiers`, () => {
+    const tester = createFormatter();
+    expect(
+      tester.verifyAndFix(
+        `import { type a } from './util';
+import { b } from './util';
+import { c } from './util';
+import { d } from './../rules/util';`,
+        {
+          ...Options.babel,
+          rules: {
+            ['sort-imports']: [
+              'error',
+              {
+                forceCombineSameSources: true,
+                forceSingleLineImports: false,
+                forceExplicitTypeImports: false,
+              },
+            ],
+          },
+        },
+      ),
+    ).to.eql({
+      fixed: true,
+      messages: [],
+      output: `import { d } from './../rules/util';
+import { type a, b, c } from './util';
 `,
     });
   });
@@ -1230,6 +1309,121 @@ import { Grid } from '@material-ui/core';
       fixed: true,
       messages: [],
       output: `import { c as X, b as Y, a as Z } from './util-a';
+`,
+    });
+  });
+
+  it(`${JSON.stringify({ forceExplicitTypeImports: false })}`, () => {
+    const tester = createFormatter();
+    expect(
+      tester.verifyAndFix(`import { type a as Z } from './util-a';`, {
+        ...Options.babel,
+        rules: {
+          ['sort-imports']: [
+            'error',
+            {
+              forceExplicitTypeImports: false,
+            },
+          ],
+        },
+      }),
+    ).to.eql({
+      fixed: false,
+      messages: [],
+      output: `import { type a as Z } from './util-a';`,
+    });
+  });
+
+  it(`${JSON.stringify({ forceExplicitTypeImports: true })}`, () => {
+    const tester = createFormatter();
+    expect(
+      tester.verifyAndFix(`import { type a as Z } from './util-a';`, {
+        ...Options.babel,
+        rules: {
+          ['sort-imports']: [
+            'error',
+            {
+              forceExplicitTypeImports: true,
+            },
+          ],
+        },
+      }),
+    ).to.eql({
+      fixed: true,
+      messages: [],
+      output: `import type { a as Z } from './util-a';
+`,
+    });
+  });
+
+  it(`${JSON.stringify({
+    forceCombineSameSources: true,
+    forceSingleLineImports: false,
+    forceExplicitTypeImports: true,
+  })}`, () => {
+    const tester = createFormatter();
+    expect(
+      tester.verifyAndFix(
+        `import { type a, type b } from './util-a';
+import { type c } from './util-a';
+import type { d } from './util-a';`,
+        {
+          ...Options.babel,
+          rules: {
+            ['sort-imports']: [
+              'error',
+              {
+                forceCombineSameSources: true,
+                forceSingleLineImports: false,
+                forceExplicitTypeImports: true,
+              },
+            ],
+          },
+        },
+      ),
+    ).to.eql({
+      fixed: true,
+      messages: [],
+      output: `import type { a, b, c, d } from './util-a';
+`,
+    });
+  });
+
+  it(`${JSON.stringify({
+    forceCombineSameSources: true,
+    forceExplicitTypeImports: false,
+    forceSingleLineImports: false,
+  })}`, () => {
+    // NOTE: This is expected behavior, if you want types to be combined use `forceExplicitTypeImports`.
+    //       We could technically support this by something like a `forceInlineTypeImports`...
+    //       Definitely not a priority unless parsers start supporting this.
+    const tester = createFormatter();
+    expect(
+      tester.verifyAndFix(
+        `import { type a, type b } from './util-a';
+import { type c } from './util-a';
+import type { d } from './util-a';
+import { e } from './util-a';`,
+        {
+          ...Options.babel,
+          rules: {
+            ['no-extra-semi']: ['error'],
+            ['sort-imports']: [
+              'error',
+              {
+                forceCombineSameSources: true,
+                forceExplicitTypeImports: false,
+                forceSingleLineImports: false,
+              },
+            ],
+          },
+        },
+      ),
+    ).to.eql({
+      fixed: true,
+      messages: [],
+      output: `import { type a, type b, type c, e } from './util-a';
+import type { d } from './util-a';
 `,
     });
   });

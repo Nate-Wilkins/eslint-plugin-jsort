@@ -24,6 +24,9 @@ tracker](https://github.com/Nate-Wilkins/eslint-plugin-jsort/issues).
 - [Sort import declarations by source](./docs/rules/sort-imports.md#sorting-by-source)
 - [Sort imported modules (aka specifiers)](./docs/rules/sort-imports.md#sorting-by-specifier)
 - [Combine import declarations that can be combined](./docs/rules/sort-imports.md#force-combine-same-source-imports)
+- [Force single line imports](./docs/rules/sort-imports.md#force-single-line-imports)
+- [Force explicit type imports](./docs/rules/sort-imports.md#force-explicit-type-imports)
+- [Normalize import source](./docs/rules/normalize-import-source.md)
 
 ## Installation
 
