@@ -93,6 +93,7 @@ $ npm install eslint-plugin-jsort --save-dev
 - [eslint-plugin-simple-import-sort](https://github.com/lydell/eslint-plugin-simple-import-sort)
 - [eslint-plugin-sort-imports-es6-autofix](https://github.com/marudor/eslint-plugin-sort-imports-es6-autofix)
 - [prettier-plugin-sort-imports](https://github.com/trivago/prettier-plugin-sort-imports)
+- [eslint-plugin-import](https://github.com/benmosher/eslint-plugin-import)
 
 ## Other Resources
 
