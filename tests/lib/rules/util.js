@@ -8,6 +8,7 @@ const jsort = require('../../../lib/jsort');
 
 const Options = {
   default: {
+    parser: 'espree',
     parserOptions: {
       ecmaVersion: 2015,
       sourceType: 'module',

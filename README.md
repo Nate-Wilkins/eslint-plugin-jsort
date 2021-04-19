@@ -3,6 +3,7 @@
 [![npm](http://img.shields.io/npm/v/eslint-plugin-jsort.svg?style=flat-square)](https://www.npmjs.com/package/eslint-plugin-jsort)
 [![license](https://img.shields.io/npm/l/eslint-plugin-jsort?style=flat-square)](https://github.com/Nate-Wilkins/eslint-plugin-jsort/blob/main/LICENSE)
 [![status](https://img.shields.io/travis/com/nate-wilkins/eslint-plugin-jsort?style=flat-square)](https://travis-ci.com/Nate-Wilkins/eslint-plugin-jsort)
+[![test coverage](https://img.shields.io/badge/test%20coverage-100%25-green?style=flat-square)](https://travis-ci.com/Nate-Wilkins/eslint-plugin-jsort)
 [![dependencies](https://david-dm.org/nate-wilkins/eslint-plugin-jsort.svg?style=flat-square)](https://david-dm.org/nate-wilkins/eslint-plugin-jsort)
 
 > ESLint plugin with rules to sort imports effortlessly.
