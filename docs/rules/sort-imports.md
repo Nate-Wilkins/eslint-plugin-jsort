@@ -25,6 +25,13 @@ The `sourceSortOrder` configuration allows you to sort and group by:
 - `global`: Global modules. (ie `import React from 'react';`)
 - `local`: Local modules. (ie `import MyComponent from './my-component';`)
 
+The `sortFunctionOrder` configuration allows you to prioritize the sort functions used.
+
+- `sourceSortOrder`: Sort by the `sourceSortOrder` configuration.
+- `memberSyntaxSortOrder`: Sort by the `memberSyntaxSortOrder` configuration.
+- `sourceName`: Sort by the source of the import declaration.
+- `specifierCount`: Sort by the amount of import specifiers an import declaration has. (ie `import { a, b } from './local';` has two)
+
 The default configuration is set to:
 
 ```js
@@ -45,7 +52,13 @@ The default configuration is set to:
         "sourceSortOrder": [
           "global",
           "local"
-        ]
+        ],
+        "sortFunctionOrder": [
+          "sourceSortOrder",
+          "memberSyntaxSortOrder",
+          "sourceName",
+          "specifierCount",
+        ],
       }
     ]
   }

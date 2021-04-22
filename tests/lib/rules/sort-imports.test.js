@@ -793,6 +793,136 @@ import H from './util';
 `,
         });
       });
+
+      it(`'${options.parser}' - ${JSON.stringify({
+        sortFunctionOrder: [],
+      })} | invalid configuration none provided`, () => {
+        const tester = createFormatter();
+        expect((text, options) => tester.verifyAndFix(text, options))
+          .withArgs(`import { a as Z, b as Y, c as X } from './util-a';`, {
+            ...options,
+            rules: {
+              ['sort-imports']: [
+                'error',
+                {
+                  sortFunctionOrder: [],
+                },
+              ],
+            },
+          })
+          .to.throwException(
+            /Unable to proceed\. Configuration `sortFunctionOrder` must be an Array of \["sourceSortOrder","memberSyntaxSortOrder","sourceName","specifierCount"\] with length 4\./,
+          );
+      });
+
+      it(`'${options.parser}' - ${JSON.stringify({
+        sortFunctionOrder: ['abc', '123', 'lolz', 'whatdoesthisdo'],
+      })} | invalid configuration wrong value`, () => {
+        const tester = createFormatter();
+        expect((text, options) => tester.verifyAndFix(text, options))
+          .withArgs(`import { a as Z, b as Y, c as X } from './util-a';`, {
+            ...options,
+            rules: {
+              ['sort-imports']: [
+                'error',
+                {
+                  sortFunctionOrder: ['abc', '123', 'lolz', 'whatdoesthisdo'],
+                },
+              ],
+            },
+          })
+          .to.throwException(
+            /Unable to proceed\. Configuration `sortFunctionOrder` must be an Array of \["sourceSortOrder","memberSyntaxSortOrder","sourceName","specifierCount"\] with length 4\. Received 'abc'\./,
+          );
+      });
+
+      it(`'${options.parser}' - ${JSON.stringify({
+        sortFunctionOrder: [
+          'sourceSortOrder',
+          'memberSyntaxSortOrder',
+          'sourceName',
+          'specifierCount',
+        ],
+      })} | default configuration`, () => {
+        const tester = createFormatter();
+        expect(
+          tester.verifyAndFix(
+            `import W from './local';
+import { c as X, b as Y, a as Z } from './local';
+import { d } from 'global';
+import * as E from './local';
+`,
+            {
+              ...options,
+              rules: {
+                ['sort-imports']: [
+                  'error',
+                  {
+                    sortFunctionOrder: [
+                      'sourceSortOrder',
+                      'memberSyntaxSortOrder',
+                      'sourceName',
+                      'specifierCount',
+                    ],
+                  },
+                ],
+              },
+            },
+          ),
+        ).to.eql({
+          fixed: true,
+          messages: [],
+          output: `import { d } from 'global';
+import * as E from './local';
+import { a as Z, b as Y, c as X } from './local';
+import W from './local';
+`,
+        });
+      });
+
+      it(`'${options.parser}' - ${JSON.stringify({
+        sortFunctionOrder: [
+          'specifierCount',
+          'memberSyntaxSortOrder',
+          'sourceName',
+          'sourceSortOrder',
+        ],
+      })}`, () => {
+        const tester = createFormatter();
+        expect(
+          tester.verifyAndFix(
+            `import W from './local';
+import { c as X, b as Y, a as Z } from './local';
+import { d } from 'global';
+import * as E from './local';
+`,
+            {
+              ...options,
+              rules: {
+                ['sort-imports']: [
+                  'error',
+                  {
+                    sortFunctionOrder: [
+                      'specifierCount',
+                      'memberSyntaxSortOrder',
+                      'sourceName',
+                      'sourceSortOrder',
+                    ],
+                  },
+                ],
+              },
+            },
+          ),
+        ).to.eql({
+          fixed: true,
+          messages: [],
+          output: `import * as E from './local';
+import { d } from 'global';
+import W from './local';
+import { a as Z, b as Y, c as X } from './local';
+`,
+        });
+      });
     });
   });
 
