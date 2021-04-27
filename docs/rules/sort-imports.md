@@ -182,6 +182,39 @@ The default configuration is set to:
 }
 ```
 
+### Force Explicit Default Imports
+
+Will explicitly import the default export as a multiple import specifier.
+This can be configured with `forceExplicitDefaultImports`.
+The default configuration is set to:
+
+```js
+{
+  "rules": {
+    "jsort/sort-imports": [
+      "error",
+      {
+        "forceExplicitDefaultImports": false,
+      }
+    ]
+  }
+}
+```
+
+**invalid**
+
+```js
+import A, { b, c } from './module-a';
+import D from './module-b';
+```
+
+**valid**
+
+```js
+import { default as A, b, c } from './module-a';
+import { default as D } from './module-b';
+```
+
 ### Force Single Line Imports
 
 Useful for reducing merge conflicts.

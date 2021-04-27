@@ -3,29 +3,6 @@
 const expect = require('expect.js');
 const { Options, createFormatter } = require('./util');
 
-//describe("'jsort/sort-imports' lints syntax successfully", () => {
-//  const linter = createLinter();
-//  linter.run('sort-imports', jsort.rules['sort-imports'], {
-//    valid: [
-//      {
-//        code: `import { a, b, c } from './module';`,
-//        options: [],
-//      },
-//    ],
-
-//    invalid: [
-//      {
-//        code: `
-//        //
-//import { c } from './module';
-//import { b, a } from './module';
-//`,
-//        errors: [{ message: 'Imports should be sorted.' }],
-//      },
-//    ],
-//  });
-//});
-
 describe("'jsort/sort-imports' formats syntax successfully", () => {
   describe('all', () => {
     [Options.default, Options.typescript, Options.babel].forEach(options => {
@@ -920,6 +897,39 @@ import * as E from './local';
 import { d } from 'global';
 import W from './local';
 import { a as Z, b as Y, c as X } from './local';
+`,
+        });
+      });
+
+      it(`'${options.parser}' - ${JSON.stringify({
+        forceExplicitDefaultImports: true,
+      })}`, () => {
+        const tester = createFormatter();
+        expect(
+          tester.verifyAndFix(
+            `import A from './local';
+import B, { c, d } from './local';
+import E from 'global';
+import * as F from './local';
+`,
+            {
+              ...options,
+              rules: {
+                ['sort-imports']: [
+                  'error',
+                  {
+                    forceExplicitDefaultImports: true,
+                  },
+                ],
+              },
+            },
+          ),
+        ).to.eql({
+          fixed: true,
+          messages: [],
+          output: `import { default as E } from 'global';
+import * as F from './local';
+import { c, d, default as A, default as B } from './local';
 `,
         });
       });
@@ -1954,6 +1964,44 @@ import { e } from './util-a';`,
         messages: [],
         output: `import { type a, type b, type c, e } from './util-a';
 import type { d } from './util-a';
+`,
+      });
+    });
+
+    it(`'@babel/eslint-parser' - ${JSON.stringify({
+      forceExplicitTypeImports: true,
+      forceExplicitDefaultImports: true,
+    })}`, () => {
+      const tester = createFormatter();
+      expect(
+        tester.verifyAndFix(
+          `import A from './local';
+import B, { c, d } from './local';
+import E from 'global';
+import * as F from './local';
+import G, { type h, type i } from './types-and-default';
+`,
+          {
+            ...Options.babel,
+            rules: {
+              ['sort-imports']: [
+                'error',
+                {
+                  forceExplicitTypeImports: true,
+                  forceExplicitDefaultImports: true,
+                },
+              ],
+            },
+          },
+        ),
+      ).to.eql({
+        fixed: true,
+        messages: [],
+        output: `import { default as E } from 'global';
+import * as F from './local';
+import { c, d, default as A, default as B } from './local';
+import { default as G } from './types-and-default';
+import type { h, i } from './types-and-default';
 `,
       });
     });
