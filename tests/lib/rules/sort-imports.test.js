@@ -2005,6 +2005,52 @@ import type { h, i } from './types-and-default';
 `,
       });
     });
+
+    it(`'@babel/eslint-parser' - ${JSON.stringify({
+      forceExplicitTypeImports: true,
+      forceExplicitDefaultImports: true,
+      forceCombineSameSources: false,
+      forceSingleLineImports: true,
+    })}`, () => {
+      const tester = createFormatter();
+      expect(
+        tester.verifyAndFix(
+          `import A from './local';
+import B, { c, d } from './local';
+import E from 'global';
+import * as F from './local';
+import G, { type h, type i } from './types-and-default';
+`,
+          {
+            ...Options.babel,
+            rules: {
+              ['sort-imports']: [
+                'error',
+                {
+                  forceExplicitTypeImports: true,
+                  forceExplicitDefaultImports: true,
+                  forceCombineSameSources: false,
+                  forceSingleLineImports: true,
+                },
+              ],
+            },
+          },
+        ),
+      ).to.eql({
+        fixed: true,
+        messages: [],
+        output: `import { default as E } from 'global';
+import * as F from './local';
+import { default as A } from './local';
+import { default as B } from './local';
+import { c } from './local';
+import { d } from './local';
+import { default as G } from './types-and-default';
+import type { h } from './types-and-default';
+import type { i } from './types-and-default';
+`,
+      });
+    });
   });
 });
 
