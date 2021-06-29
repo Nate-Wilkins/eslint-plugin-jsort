@@ -1570,6 +1570,39 @@ import { a, b, c, d, e, f, m } from './util';`,
   });
 
   describe("'@typescript-eslint/parser' | specific", () => {
+    it(`'@typescript-eslint/parser' -  ${JSON.stringify({
+      forceCombineSameSources: true,
+      forceSingleLineImports: false,
+      forceExplicitTypeImports: true,
+    })} | mixed multiple and default import specifiers with same name import specifiers`, () => {
+      const tester = createFormatter();
+      expect(
+        tester.verifyAndFix(
+          `import G, { a } from './util';
+import H, { a } from './util';`,
+          {
+            ...Options.typescript,
+            rules: {
+              ['sort-imports']: [
+                'error',
+                {
+                  forceCombineSameSources: true,
+                  forceSingleLineImports: false,
+                  forceExplicitTypeImports: true,
+                },
+              ],
+            },
+          },
+        ),
+      ).to.eql({
+        fixed: true,
+        messages: [],
+        output: `import G, { a } from './util';
+import H from './util';
+`,
+      });
+    });
+
     it(`'@typescript-eslint/parser' - ${JSON.stringify(
       {},
     )} | uses dynamic import`, () => {
