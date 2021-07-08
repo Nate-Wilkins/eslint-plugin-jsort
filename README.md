@@ -2,7 +2,7 @@
 
 [![npm](http://img.shields.io/npm/v/eslint-plugin-jsort.svg?style=flat-square)](https://www.npmjs.com/package/eslint-plugin-jsort)
 [![license](https://img.shields.io/npm/l/eslint-plugin-jsort?style=flat-square)](https://github.com/Nate-Wilkins/eslint-plugin-jsort/blob/main/LICENSE)
-[![status](https://img.shields.io/travis/com/nate-wilkins/eslint-plugin-jsort?style=flat-square)](https://travis-ci.com/Nate-Wilkins/eslint-plugin-jsort)
+[![status](https://travis-ci.com/Nate-Wilkins/eslint-plugin-jsort.svg?branch=main)](https://travis-ci.com/Nate-Wilkins/eslint-plugin-jsort)
 [![test coverage](https://img.shields.io/badge/test%20coverage-100%25-green?style=flat-square)](https://travis-ci.com/Nate-Wilkins/eslint-plugin-jsort)
 [![dependencies](https://badges.depfu.com/badges/705f59ba329b70bdea1483efccce11f5/overview.svg)](https://depfu.com/github/Nate-Wilkins/eslint-plugin-jsort?project_id=24360)
 
