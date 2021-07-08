@@ -1,0 +1,11 @@
+.idea/
+bower_components/
+node_modules/
+.editorconfig
+.eslintrc
+.travis.yml
+.gitattributes
+.npmignore
+.DS_Store
+tests
+build

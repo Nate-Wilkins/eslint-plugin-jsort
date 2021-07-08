@@ -9,4 +9,3 @@ module.exports = {
   arrowParens: 'avoid', // default
 };
 
-
