@@ -75,6 +75,46 @@ import b from 'foo.js';`,
       });
 
       it(`'${options.parser}' - ${JSON.stringify({
+        ignoreCase: true,
+      })} | validate by source`, () => {
+        const tester = createFormatter();
+        expect(
+          tester.verify(
+            `import A from 'A';
+import B from 'B';
+import C from 'C';
+import D from 'D';
+import F from 'E';
+import E from 'F/A';
+import G from 'F';
+`,
+            {
+              ...Options.babel,
+              rules: {
+                ['sort-imports']: [
+                  'error',
+                  {
+                    ignoreCase: true,
+                  },
+                ],
+              },
+            },
+          ),
+        ).to.eql({
+          fixed: true,
+          messages: [],
+          output: `import A from 'A';
+import B from 'B';
+import C from 'C';
+import D from 'D';
+import F from 'E';
+import G from 'F';
+import E from 'F/A';
+`,
+        });
+      });
+
+      it(`'${options.parser}' - ${JSON.stringify({
         ignoreCase: false,
       })} | format without whitespace`, () => {
         const tester = createFormatter();
@@ -2086,4 +2126,3 @@ import type { i } from './types-and-default';
     });
   });
 });
-
