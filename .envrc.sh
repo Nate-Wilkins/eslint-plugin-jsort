@@ -72,13 +72,6 @@ function install() {
 }
 
 #
-# Run build pipeline to create distributable.
-#
-function build() {
-  yarn build
-}
-
-#
 # Run documentation generation.
 #
 # Dependencies:
@@ -135,7 +128,6 @@ function help() {
   echo '   configure              Run configuration setup for a specific environment.             '
   echo '   install                Run NodeJS packages install with yarn.                          '
   echo '                          Run Rust packages install with cargo.                           '
-  echo '   build                  Run build pipeline to create distributable.                     '
   echo '   docs                   Run documentation generation.                                   '
   echo '   test                   Run tests.                                                      '
   echo '   lint                   Run source code linting.                                        '
