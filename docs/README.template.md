@@ -106,6 +106,7 @@ Written in Typescript. Workflows are defined in `.envrc.sh`.
 
 ## Contributions
 
-| Author       | Estimated Hours                                                                     |
-| ------------ | ----------------------------------------------------------------------------------- | ------------------------------------ | ------------ |
-| <%#authors%> | [![<%name%>](https://github.com/<%name%>.png?size=64)](https://github.com/<%name%>) | <p align="right"><%hours%> Hours</p> | <%/authors%> |
+| Author  | Estimated Hours |
+| ------------- | ------------- |
+<%#authors%>| [![<%name%>](https://github.com/<%name%>.png?size=64)](https://github.com/<%name%>) | <p align="right"><%hours%> Hours</p> |
+<%/authors%>

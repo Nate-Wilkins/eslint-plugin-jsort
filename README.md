@@ -117,6 +117,8 @@ Written in Typescript. Workflows are defined in `.envrc.sh`.
 
 ## Contributions
 
-| Author       | Estimated Hours                                                                     |
-| ------------ | ----------------------------------------------------------------------------------- | ------------------------------------ | ------------ |
-|  | [![nate-wilkins](https://github.com/nate-wilkins.png?size=64)](https://github.com/nate-wilkins) | <p align="right">17.23 Hours</p> |  | [![depfu[bot]](https://github.com/depfu[bot].png?size=64)](https://github.com/depfu[bot]) | <p align="right">4.95 Hours</p> |  | [![dependabot[bot]](https://github.com/dependabot[bot].png?size=64)](https://github.com/dependabot[bot]) | <p align="right">1.5 Hours</p> |  |
+| Author  | Estimated Hours |
+| ------------- | ------------- |
+| [![nate-wilkins](https://github.com/nate-wilkins.png?size=64)](https://github.com/nate-wilkins) | <p align="right">16.8 Hours</p> |
+| [![depfu[bot]](https://github.com/depfu[bot].png?size=64)](https://github.com/depfu[bot]) | <p align="right">4.95 Hours</p> |
+| [![dependabot[bot]](https://github.com/dependabot[bot].png?size=64)](https://github.com/dependabot[bot]) | <p align="right">2 Hours</p> |
